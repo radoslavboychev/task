@@ -1,0 +1,7 @@
+# CLI for managing tasks
+
+# add
+
+# list
+
+# do - marks a task as complete
