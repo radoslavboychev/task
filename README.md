@@ -130,3 +130,6 @@ The `rm` command will delete a task instead of completing it.
 The `completed` command will list out any tasks completed in the same day. You can define this however you want (last 12hrs, last 24hrs, or the same calendar date).
 
 The first version of our CLI could get away with deleting tasks from the DB, but if you want these features to work you are likely going to need to tweak your DB design a bit. I'll leave that as an exercise for you to try out on your own, but if you need help feel free to get in touch - <jon@calhoun.io>
+
+
+

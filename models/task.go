@@ -1,20 +1,20 @@
-package tasks
+package models
+
+import "fmt"
 
 // Task
 type Task struct {
-	ID          string
-	Name        string
-	Description string
-	IsDone      bool
+	ID     string
+	Name   string
+	IsDone bool
 }
 
 // NewTask
-func NewTask(id, name, description, isDone string) *Task {
+func NewTask(id, name string, isDone bool) *Task {
 	return &Task{
-		ID:          id,
-		Name:        name,
-		Description: description,
-		IsDone:      false,
+		ID:     id,
+		Name:   name,
+		IsDone: false,
 	}
 }
 
@@ -25,7 +25,8 @@ type TaskList struct {
 
 // TaskInfo
 func (t Task) TaskInfo() string {
-	return "Task: " + t.Name + " - " + t.Description + " "
+	fmt.Println("Task: " + t.Name + " - " + " ")
+	return "Task: " + t.Name + " - " + " "
 }
 
 // AddTask
