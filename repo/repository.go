@@ -23,8 +23,8 @@ type TaskRepo struct {
 }
 
 // NewTaskRepo
-func NewTaskRepo(db *bolt.DB) *TaskRepo {
-	return &TaskRepo{
+func NewTaskRepo(db *bolt.DB) TaskRepo {
+	return TaskRepo{
 		DB: db,
 	}
 }
@@ -43,7 +43,7 @@ func (tr *TaskRepo) CreateBucket(name string) error {
 	return nil
 }
 
-// CreateTask
+// CreateTask creates a task
 func (tr *TaskRepo) CreateTask(t models.Task) error {
 	tr.DB.Update(func(tx *bolt.Tx) error {
 
@@ -54,24 +54,39 @@ func (tr *TaskRepo) CreateTask(t models.Task) error {
 		}
 		return nil
 	})
-	log.Printf("created task %v", t.Name)
 	return nil
 }
 
-// ViewDB
+// ViewDB prints all of the tasks from the bucket
 func (tr *TaskRepo) ViewDB(bucket string) error {
 
 	tr.DB.View(func(tx *bolt.Tx) error {
 		// Assume bucket exists and has keys
 		b := tx.Bucket([]byte(bucket))
 
-		c := b.Cursor()
-
-		for k, v := c.First(); k != nil; k, v = c.Next() {
-			fmt.Printf("key: %v value: %v\n", string(k), string(v))
-		}
+		b.ForEach(func(k, v []byte) error {
+			fmt.Printf("Task: %v %v \n", string(k), string(v))
+			return nil
+		})
 
 		return nil
 	})
+	return nil
+}
+
+// DoTask removes a key/value pair from a specific bucket that matches the ID of the key
+func (tr *TaskRepo) DoTask(id string) error {
+	err := tr.DB.Update(func(tx *bolt.Tx) error {
+		b := tx.Bucket([]byte("tasks"))
+		err := b.Delete([]byte(id))
+		if err != nil {
+			return err
+		}
+		return nil
+
+	})
+	if err != nil {
+		return err
+	}
 	return nil
 }

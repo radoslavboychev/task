@@ -25,8 +25,8 @@ type TaskList struct {
 
 // TaskInfo
 func (t Task) TaskInfo() string {
-	fmt.Println("Task: " + t.Name + " - " + " ")
-	return "Task: " + t.Name + " - " + " "
+	fmt.Println("Task: " + t.ID + " " + t.Name)
+	return "Task: " + t.ID + " " + t.Name
 }
 
 // AddTask
